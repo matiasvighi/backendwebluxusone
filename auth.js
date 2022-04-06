@@ -8,6 +8,8 @@ const verifyToken = (req, res, next) => {
   const token =
     req.body.token || req.query.token || req.headers["x-access-token"];
 
+    console.log(token,"token");
+
   if (!token) {
     return res.send("A token is required for authentication",403);
   }
@@ -15,6 +17,7 @@ const verifyToken = (req, res, next) => {
     const decoded = jwt.verify(token, "chota"); //variable de entorno chupija la pame
     req.user = decoded;
    
+    console.log (decoded.token,"decoded");
   } catch (err) {
     return res.send("Invalid Token",401);
     

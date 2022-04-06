@@ -43,10 +43,13 @@ app.use(function (req, res, next) {
 
 app.post("/welcome", auth, async (req, res) => {
 
-  const identificator = req.user.id;
-  console.log(identificator,"ID que voy a buscar")
-  const username = await User.findOne({ identificator });
-  console.log(username.email,"email del usuario");
+  console.log(req.user,"req entero");
+  const identificator = req.user.user_id;
+  const identificatorw = {_id : identificator};
+  console.log(identificatorw,"ID que voy a buscar")
+  var username = await User.findOne(identificatorw);
+ 
+  console.log(username,"email del usuario");
   const identificatordb = username.id 
   const name = `${username.first_name} ${username.last_name}`
   const mensaje = `{nombre: ${name} ID: ${identificatordb}} `;
@@ -73,7 +76,7 @@ app.post("/register", async (req, res) => {
 
     // check if user already exist
     // Validate if user exist in our database
-    console.log("le pregunto a la db si ese usr existe");
+    console.log("le pregunto a la db si ese usr existe",email);
     const oldUser = await User.findOne({ email });
 
     if (oldUser) {
@@ -161,7 +164,7 @@ app.post("/register", async (req, res) => {
 
 
 
-const PORT = 8001
+const PORT = 8002
 app.listen (PORT, () => {
 console.log("server is running on port",PORT)
 })
