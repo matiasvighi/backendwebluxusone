@@ -52,7 +52,8 @@ app.post("/welcome", auth, async (req, res) => {
   console.log(username,"email del usuario");
   const identificatordb = username.id 
   const name = `${username.first_name} ${username.last_name}`
-  const mensaje = `{nombre: ${name} ID: ${identificatordb}} `;
+  //const mensaje = `{nombre: ${name} ID: ${identificatordb}} `;
+  const mensaje = {name : name, chota : identificatordb };
   console.log (mensaje); 
  
   res.send(mensaje);
