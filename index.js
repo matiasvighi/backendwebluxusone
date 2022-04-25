@@ -9,6 +9,7 @@ const jwt = require("jsonwebtoken")
 require ("./mongoose.js")
 const User = require("./models/user");
 const auth = require("./auth");
+const user = require('./models/user');
 
 
 require("dotenv").config();
@@ -51,9 +52,12 @@ app.post("/welcome", auth, async (req, res) => {
  
   console.log(username,"email del usuario");
   const identificatordb = username.id 
-  const name = `${username.first_name} ${username.last_name}`
+  const name = username.first_name 
+  const email = username.email
+  const lastname = username.last_name
+  const password = "no te voy a pasar la clave pa"
   //const mensaje = `{nombre: ${name} ID: ${identificatordb}} `;
-  const mensaje = {name : name, chota : identificatordb };
+  const mensaje = {name : name, id : identificatordb, last_name : lastname, password : password, email : email };
   console.log (mensaje); 
  
   res.send(mensaje);
