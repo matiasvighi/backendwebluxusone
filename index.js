@@ -57,7 +57,7 @@ app.post("/welcome", auth, async (req, res) => {
   const lastname = username.last_name
   const password = "no te voy a pasar la clave pa"
   //const mensaje = `{nombre: ${name} ID: ${identificatordb}} `;
-  const mensaje = {name : name, id : identificatordb, last_name : lastname, password : password, email : email };
+  const mensaje = {first_name : name, id : identificatordb, last_name : lastname, password : password, email : email };
   console.log (mensaje); 
  
   res.send(mensaje);
