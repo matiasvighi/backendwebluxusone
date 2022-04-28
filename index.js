@@ -67,6 +67,47 @@ app.post("/welcome", auth, async (req, res) => {
 
 
 
+
+
+app.post("/modif",auth,async(req,res) => {
+
+  console.log(req.user, "req usuario");
+  console.log(req.data,"req cuerpo")
+  const identificator = req.user.user_id;
+  const identificatorw = {_id : identificator};
+  
+  console.log(identificatorw,"ID que voy a buscar")
+  password = req.data.password
+  var username = await User.findOne(identificatorw);
+  passwordDb = username.password
+  encryptedPassword = await bcrypt.hash(password, 10);
+  
+  
+    if (encryptedPassword == passwordDb) {
+
+      if (req.data.passwordn ) {//aca pongo el codigo que agrega la contraseña al objeto con ...spread
+      }
+    var updated = await User.findByIdAndUpdate(identificatorw,sendData);
+  // verificar "elses"
+    //console.log("datos updateados", updated)
+  //console.log(username,"email del usuario");
+  //const identificatordb = updated.id 
+
+    }
+
+ 
+
+  
+  
+})
+
+
+
+
+
+
+
+
 app.post("/register", async (req, res) => {
    // Our register logic starts here
    try {
