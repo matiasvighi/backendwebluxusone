@@ -80,20 +80,35 @@ app.post("/modif",auth,async(req,res) => {
   password = req.data.password
   var username = await User.findOne(identificatorw);
   passwordDb = username.password
-  encryptedPassword = await bcrypt.hash(password, 10);
+ // encryptedPassword = await bcrypt.hash(password, 10);
   
-  
-    if (encryptedPassword == passwordDb) {
+  //console.log("encriptedPass",encryptedPassword,"pass de la db", passwordDb)
+    //if (encryptedPassword == passwordDb) {
+    
+      
 
+      if (await bcrypt.compare(password, passwordDb)) {
+        // Create token
+    
+    console.log("entre al if")
+    var editUserData = {first_name : req.data.first_name, 
+                        last_name : req.data.last_name,
+                        email : req.data.email};
       if (req.data.passwordn ) {//aca pongo el codigo que agrega la contraseña al objeto con ...spread
+        encryptedPassword = await bcrypt.hash(req.data.passwordn, 10);
+       
+       var pija = {...editUserData, password : encryptedPassword}
+       console.log(pija,"objeto que va para la db")
+      
       }
-    var updated = await User.findByIdAndUpdate(identificatorw,sendData);
+    var updated = await User.findByIdAndUpdate(identificatorw,editUserData);
   // verificar "elses"
     //console.log("datos updateados", updated)
   //console.log(username,"email del usuario");
   //const identificatordb = updated.id 
 
     }
+    console.log("no entré al if")
 
  
 
